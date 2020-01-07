@@ -17,7 +17,8 @@ cliUrl="https://download-cf.jetbrains.com/resharper/ReSharperUltimate.2019.3.1/J
 echo "Fetching Resharper CLI tools"
 curl ${cliUrl} > ${outFile}
 
-mkdir ${gitResharperFolder}
+rm -rf ${gitResharperFolder} # Delete any old versions
+mkdir -p ${gitResharperFolder}
 tar -xf "./${outFile}" -C ${gitResharperFolder}
 
 # The pre-commit hook
