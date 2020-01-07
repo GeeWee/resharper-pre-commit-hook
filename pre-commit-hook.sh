@@ -20,7 +20,18 @@ echo "Include string: $INCLUDE_STRING"
 
 # Edit your project files here
 echo "Formatting files..."
-sh ./.git/hooks/resharper/cleanupcode.sh --profile="Built-in: Reformat Code" ./OAI.sln --include="$INCLUDE_STRING"
+if [[ "$OSTYPE" == "msys"* ]]; then
+    # Lightweight shell and GNU utilities compiled for Windows (part of MinGW)
+    ./.git/hooks/resharper/cleanupcode.exe --profile="Built-in: Reformat Code" ./OAI.sln --include="$INCLUDE_STRING"
+elif [[ "$OSTYPE" == "cygwin" ]]; then
+    #Cygwin terminal emulator
+    ./.git/hooks/resharper/cleanupcode.exe --profile="Built-in: Reformat Code" ./OAI.sln --include="$INCLUDE_STRING"
+elif [[ "$OSTYPE" == "msys" ]]; then
+    ./.git/hooks/resharper/cleanupcode.exe --profile="Built-in: Reformat Code" ./OAI.sln --include="$INCLUDE_STRING"
+else
+    sh ./.git/hooks/resharper/cleanupcode.sh --profile="Built-in: Reformat Code" ./OAI.sln --include="$INCLUDE_STRING"
+fi
+
 
 # Restage files
 echo "Restaging files: $STAGED_FILES"
