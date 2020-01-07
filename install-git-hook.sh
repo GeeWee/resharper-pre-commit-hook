@@ -17,10 +17,13 @@ cliUrl="https://download-cf.jetbrains.com/resharper/ReSharperUltimate.2019.3.1/J
 echo "Fetching Resharper CLI tools"
 curl ${cliUrl} > ${outFile}
 
+echo "Cleaning up old versions"
 rm -rf ${gitResharperFolder} # Delete any old versions
 mkdir -p ${gitResharperFolder}
+echo "Extracting into ${gitResharperFolder}"
 tar -xf "./${outFile}" -C ${gitResharperFolder}
 
+echo "Adding pre-commit hook"
 # The pre-commit hook
 cat > ${preCommitFile} <<'EOL'
 #!/bin/sh
