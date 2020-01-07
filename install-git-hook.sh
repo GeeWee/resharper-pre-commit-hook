@@ -10,16 +10,15 @@ trap 'last_command=$current_command; current_command=$BASH_COMMAND' DEBUG
 trap 'echo "\"${last_command}\" command filed with exit code $?."' ERR
 
 outFile="./resharper-cli.tar.gz"
-outUnzippedDirectory="./unzipped-archive"
 gitResharperFolder="./.git/hooks/resharper"
 preCommitFile="./.git/hooks/pre-commit"
 cliUrl="https://download-cf.jetbrains.com/resharper/ReSharperUltimate.2019.3.1/JetBrains.ReSharper.CommandLineTools.Unix.2019.3.1.tar.gz"
-#
-#echo "Fetching Resharper CLI tools"
-#curl ${cliUrl} > ${outFile}
-#
-#mkdir ${gitResharperFolder}
-#tar -xf "./${outFile}" -C ${gitResharperFolder}
+
+echo "Fetching Resharper CLI tools"
+curl ${cliUrl} > ${outFile}
+
+mkdir ${gitResharperFolder}
+tar -xf "./${outFile}" -C ${gitResharperFolder}
 
 # The pre-commit hook
 cat > ${preCommitFile} <<'EOL'
