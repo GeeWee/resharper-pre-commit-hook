@@ -41,8 +41,9 @@ echo "Current working dir ${pwd}"
 echo "Staged files"
 STAGED_FILES=`git diff --name-only --cached`
 
-# Build edit string, by replacing newlines with semicolons
-INCLUDE_STRING=`git diff --name-only --cached | sed ':a;N;$!ba;s/\n/;/g'`
+# Build edit string, by replacing newlines with semicolons.
+# --diff-filter=d only filters files that are not deleted, which means we won't have trouble adding them afterwards
+INCLUDE_STRING=`git diff --name-only --cached --diff-filter=d | sed ':a;N;$!ba;s/\n/;/g'`
 echo "Include string: $INCLUDE_STRING"
 
 # Edit your project files here
