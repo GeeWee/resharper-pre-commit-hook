@@ -18,6 +18,13 @@ echo "Staged files ${STAGED_FILES}"
 INCLUDE_STRING=`git diff --name-only --cached --diff-filter=d | sed ':a;N;$!ba;s/\n/;/g'`
 echo "Include string: $INCLUDE_STRING"
 
+# If the include string is empty, we're done. This happens e.g. if the commit only consists of deleted files.
+if [[ -z "$INCLUDE_STRING" ]]
+then
+    echo "No files to change"
+    exit 0
+fi
+
 # Edit your project files here
 echo "Formatting files..."
 if [[ "$OSTYPE" == "msys"* ]]; then
