@@ -44,3 +44,4 @@ echo "Restaging files: $STAGED_FILES"
 echo ${STAGED_FILES} | xargs -t -l git add
 
 echo "pre-commit hook finished"
+
